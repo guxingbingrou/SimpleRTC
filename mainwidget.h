@@ -22,7 +22,7 @@ private:
     std::shared_ptr<VideoDecoder> mVideoDecoder;
 
     void ReadH264AndDecode(const QString srcPath, const QString destPath);
-    static void SaveFrame(void* user, uint8_t* data, int width, int height, FrameFormat format);
+    static void ProcessFrame(void* user, uint8_t* data, int width, int height, FrameFormat format);
 
     uint8_t* srcData = nullptr;
     //FILE* f_dest = nullptr;

@@ -13,7 +13,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     mVideoDecoder = VideoDecoder::CreateVideoDecoder(SimpleH264);
 
-    mVideoDecoder->InitVideoDecoder(MainWidget::SaveFrame, this);
+    mVideoDecoder->InitVideoDecoder(MainWidget::ProcessFrame, this);
 
 
     mThread = std::thread(&MainWidget::ReadH264AndDecode, this, "record1.h264", "record1.yuv");
@@ -56,7 +56,7 @@ void MainWidget::ReadH264AndDecode(const QString srcPath, const QString destPath
     }
 }
 
-void MainWidget::SaveFrame(void *user, uint8_t *data, int width, int height, FrameFormat format)
+void MainWidget::ProcessFrame(void *user, uint8_t *data, int width, int height, FrameFormat format)
 {
 //    qDebug() << "save frame, wxh: " << width << "x" << height << " format: " << format;
 
