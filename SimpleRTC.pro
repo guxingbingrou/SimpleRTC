@@ -23,18 +23,28 @@ LIBS += -L$$PWD/thirdparty/libs/ffmpeg -lavcodec -lavutil
 LIBS += -L$$PWD/thirdparty/libs/libyuv -lyuv
 
 SOURCES += \
+    PeerConnection/simplepeerconnection.cpp \
+    SessionDescription/mediadescription.cpp \
+    SessionDescription/simplesessiondescription.cpp \
     VideoDecoder/videodecoder.cpp \
     VideoDecoder/videodecoderh264.cpp \
     main.cpp \
-    mainwidget.cpp
+    mainwidget.cpp \
+    testvideodecoder.cpp
 
 HEADERS += \
+    PeerConnection/simplepeerconnection.h \
+    SessionDescription/SessionDesciptionOption.h \
+    SessionDescription/mediadescription.h \
+    SessionDescription/simplesessiondescription.h \
     VideoDecoder/videodecoder.h \
     VideoDecoder/videodecoderh264.h \
-    mainwidget.h
+    mainwidget.h \
+    testvideodecoder.h
 
 FORMS += \
-    mainwidget.ui
+    mainwidget.ui \
+    testvideodecoder.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
