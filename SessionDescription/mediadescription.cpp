@@ -237,7 +237,7 @@ std::string MediaDescription::Serilalize()
     }
     message.append(ss.str());
 
-    qDebug() << QString::fromStdString(ss.str());
+//    qDebug() << QString::fromStdString(ss.str());
 
     if(mSctpPort){
         message.append("a=sctp-port:5000\r\n");

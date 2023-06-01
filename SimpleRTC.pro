@@ -26,6 +26,7 @@ SOURCES += \
     PeerConnection/simplepeerconnection.cpp \
     SessionDescription/mediadescription.cpp \
     SessionDescription/simplesessiondescription.cpp \
+    Utils/logger.cpp \
     VideoDecoder/videodecoder.cpp \
     VideoDecoder/videodecoderh264.cpp \
     main.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     SessionDescription/SessionDesciptionOption.h \
     SessionDescription/mediadescription.h \
     SessionDescription/simplesessiondescription.h \
+    Utils/logger.h \
     VideoDecoder/videodecoder.h \
     VideoDecoder/videodecoderh264.h \
     mainwidget.h \
