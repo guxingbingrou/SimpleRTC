@@ -1,7 +1,7 @@
-#include "videodecoder.h"
-#include "videodecoderh264.h"
+#include "VideoDecoder.h"
+#include "VideoDecoderH264.h"
 
-std::shared_ptr<VideoDecoder> VideoDecoder::CreateVideoDecoder(DecoderType decoder_type)
+std::shared_ptr<VideoDecoder> VideoDecoder::CreateVideoDecoder(VideoCodecType decoder_type)
 {
     std::shared_ptr<VideoDecoder> decoder;
     switch (decoder_type) {

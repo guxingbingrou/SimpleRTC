@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <thread>
-#include "VideoDecoder/videodecoder.h"
+#include "VideoDecoder/VideoDecoder.h"
 
 namespace Ui {
 class TestVideoDecoder;
@@ -22,7 +22,7 @@ private:
     std::shared_ptr<VideoDecoder> mVideoDecoder;
 
     void ReadH264AndDecode(const QString srcPath, const QString destPath);
-    static void ProcessFrame(void* user, uint8_t* data, int width, int height, FrameFormat format);
+    static void ProcessFrame(void* user, uint8_t* data, int width, int height, VideoFrameFormat format);
 
     uint8_t* srcData = nullptr;
     //FILE* f_dest = nullptr;

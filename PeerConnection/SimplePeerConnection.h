@@ -3,8 +3,8 @@
 
 #include <string>
 #include <memory>
-#include "SessionDescription/SessionDesciptionOption.h"
-#include "SessionDescription/simplesessiondescription.h"
+#include "SessionDescription/SessionDescriptionOption.h"
+#include "SessionDescription/SessionDescriptionFactory.h"
 class SimplePeerConnection
 {
 public:
@@ -13,8 +13,8 @@ public:
     std::string CreateOffer(const SessionDescriptionOption* option);
     std::string CreateAnswer(const SessionDescriptionOption* option);
 
-    bool SetLocalDescription(std::shared_ptr<SimpleSessionDescription> session_description);
-    bool SetRemoteDescription(std::shared_ptr<SimpleSessionDescription> session_description);
+    bool SetLocalDescription(std::shared_ptr<SessionDescriptionFactory> session_description);
+    bool SetRemoteDescription(std::shared_ptr<SessionDescriptionFactory> session_description);
 
 
 private:

@@ -1,4 +1,4 @@
-#include "logger.h"
+#include "Logger.h"
 #include <QtDebug>
 #include <stdexcept>
 #include <time.h>

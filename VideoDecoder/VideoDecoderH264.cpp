@@ -1,4 +1,4 @@
-#include "videodecoderh264.h"
+#include "VideoDecoderH264.h"
 #include "libyuv/libyuv.h"
 #include "QDebug"
 VideoDecoderH264::VideoDecoderH264()

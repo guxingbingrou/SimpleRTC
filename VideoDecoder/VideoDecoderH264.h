@@ -1,7 +1,7 @@
 #ifndef VIDEODECODERH264_H
 #define VIDEODECODERH264_H
 
-#include "VideoDecoder/videodecoder.h"
+#include "VideoDecoder/VideoDecoder.h"
 
 extern "C"{
 #include "libavcodec/avcodec.h"

@@ -56,7 +56,7 @@ void TestVideoDecoder::ReadH264AndDecode(const QString srcPath, const QString de
     }
 }
 
-void TestVideoDecoder::ProcessFrame(void *user, uint8_t *data, int width, int height, FrameFormat format)
+void TestVideoDecoder::ProcessFrame(void *user, uint8_t *data, int width, int height, VideoFrameFormat format)
 {
 //    qDebug() << "save frame, wxh: " << width << "x" << height << " format: " << format;
 

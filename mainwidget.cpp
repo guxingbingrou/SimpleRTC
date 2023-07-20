@@ -1,9 +1,9 @@
 #include "mainwidget.h"
 #include "ui_mainwidget.h"
-#include "SessionDescription/simplesessiondescription.h"
-#include "SessionDescription/SessionDesciptionOption.h"
+#include "SessionDescription/SessionDescriptionFactory.h"
+#include "SessionDescription/SessionDescriptionOption.h"
 #include <QtDebug>
-#include "Utils/logger.h"
+#include "Utils/Logger.h"
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
@@ -12,13 +12,13 @@ MainWidget::MainWidget(QWidget *parent)
     ui->setupUi(this);
 
 
-    std::unique_ptr<SimpleSessionDescription> sdp = std::make_unique<SimpleSessionDescription>();
+    std::unique_ptr<SessionDescriptionFactory> sdp_factory = std::make_unique<SessionDescriptionFactory>();
 
     SessionDescriptionOption option;
 
-    sdp->GenerateMediaDescriptions(&option);
+    auto offer = sdp_factory->CreateOffer(&option);
 
-    INFO("sdp:\n%s", sdp->SdpSerilalize().c_str());
+    DEBUG("sdp:\n%s", offer->ToString().c_str());
 
 }
 

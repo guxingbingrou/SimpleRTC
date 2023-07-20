@@ -23,24 +23,32 @@ LIBS += -L$$PWD/thirdparty/libs/ffmpeg -lavcodec -lavutil
 LIBS += -L$$PWD/thirdparty/libs/libyuv -lyuv
 
 SOURCES += \
-    PeerConnection/simplepeerconnection.cpp \
-    SessionDescription/mediadescription.cpp \
-    SessionDescription/simplesessiondescription.cpp \
-    Utils/logger.cpp \
-    VideoDecoder/videodecoder.cpp \
-    VideoDecoder/videodecoderh264.cpp \
+    MediaEngine/MediaCodec.cpp \
+    PeerConnection/SimplePeerConnection.cpp \
+    SessionDescription/SessionDescription.cpp \
+    SessionDescription/SessionDescriptionFactory.cpp \
+    SessionDescription/SimpleSsrc.cpp \
+    SessionDescription/TransportDescription.cpp \
+    Utils/Logger.cpp \
+    Utils/Util.cpp \
+    VideoDecoder/VideoDecoder.cpp \
+    VideoDecoder/VideoDecoderH264.cpp \
     main.cpp \
     mainwidget.cpp \
     testvideodecoder.cpp
 
 HEADERS += \
-    PeerConnection/simplepeerconnection.h \
-    SessionDescription/SessionDesciptionOption.h \
-    SessionDescription/mediadescription.h \
-    SessionDescription/simplesessiondescription.h \
-    Utils/logger.h \
-    VideoDecoder/videodecoder.h \
-    VideoDecoder/videodecoderh264.h \
+    MediaEngine/MediaCodec.h \
+    PeerConnection/SimplePeerConnection.h \
+    SessionDescription/SessionDescription.h \
+    SessionDescription/SessionDescriptionFactory.h \
+    SessionDescription/SessionDescriptionOption.h \
+    SessionDescription/SimpleSsrc.h \
+    SessionDescription/TransportDescription.h \
+    Utils/Logger.h \
+    Utils/Util.h \
+    VideoDecoder/VideoDecoder.h \
+    VideoDecoder/VideoDecoderH264.h \
     mainwidget.h \
     testvideodecoder.h
 

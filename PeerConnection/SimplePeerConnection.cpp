@@ -1,4 +1,4 @@
-#include "simplepeerconnection.h"
+#include "SimplePeerConnection.h"
 
 SimplePeerConnection::SimplePeerConnection()
 {
@@ -7,7 +7,8 @@ SimplePeerConnection::SimplePeerConnection()
 
 std::string SimplePeerConnection::CreateOffer(const SessionDescriptionOption *option)
 {
-    std::shared_ptr<SimpleSessionDescription> session_description = std::make_shared<SimpleSessionDescription>();
+    auto session_description_factory = std::make_unique<SessionDescriptionFactory>();
+    session_description_factory->CreateOffer(option);
 
     return "";
 }
