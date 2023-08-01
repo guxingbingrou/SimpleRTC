@@ -29,9 +29,6 @@ class MediaCodec
 {
 public:
     virtual ~MediaCodec();
-//    MediaCodec& operator=(const MediaCodec& codec);
-//    MediaCodec& operator=(MediaCodec&& codec);
-
 
     int mID;
     std::string mName;
@@ -39,37 +36,44 @@ public:
 
     CodecParamterMap mParamMaps;
     std::vector<FeedbackParam> mFeedbackParams;
+    virtual void AddDefalutParams();
 
+    void AddCodecParamter(const std::string& key, const std::string& value);
+
+    void AddFeedbackParam(const std::string& id, const std::string& value);
 protected:
     MediaCodec(const int id, const std::string& name, const int clockrate);
-    virtual void AddDefalutParams();
+
 
 };
 
 
 class VideoCodec : public MediaCodec{
 public:
-    VideoCodec(const int id, const std::string& name)
-        : MediaCodec(id, name, 90000){
+    VideoCodec(const int id, const std::string& name, int clockrate=90000)
+        : MediaCodec(id, name, clockrate){
+    }
+
+    VideoCodec(const int id)
+        : MediaCodec(id, "", 90000){
     }
 
     virtual ~VideoCodec();
-//    VideoCodec& operator=(const VideoCodec& codec);
-//    VideoCodec& operator=(VideoCodec&& codec);
-private:
     void AddDefalutParams() override;
+
+private:
+
 };
 
 class AudioCodec : public MediaCodec{
 public:
-    AudioCodec(const int id, const std::string& name, int channels)
-        : MediaCodec(id, name, 48000), mChannels(channels){}
+    AudioCodec(const int id, const std::string& name, int channels, int clockrate=48000)
+        : MediaCodec(id, name, clockrate), mChannels(channels){}
+
+    AudioCodec(const int id)
+        : MediaCodec(id, "", 48000){}
 
     virtual ~AudioCodec();
-//    AudioCodec& operator=(const AudioCodec& codec);
-//    AudioCodec& operator=(AudioCodec&& codec);
-
-
 
     int mChannels;
 

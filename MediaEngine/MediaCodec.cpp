@@ -7,12 +7,22 @@ MediaCodec::~MediaCodec() = default;
 MediaCodec::MediaCodec(const int id, const std::string &name, const int clockrate)
     : mID(id), mName(name), mClockrate(clockrate)
 {
-    AddDefalutParams();
+//    AddDefalutParams();
 }
 
 void MediaCodec::AddDefalutParams()
 {
     mFeedbackParams.emplace_back(FeedbackParam("transport-cc", ""));
+}
+
+void MediaCodec::AddCodecParamter(const std::string &key, const std::string &value)
+{
+    mParamMaps[key] = value;
+}
+
+void MediaCodec::AddFeedbackParam(const std::string &id, const std::string &value)
+{
+    mFeedbackParams.emplace_back(FeedbackParam(id, value));
 }
 
 

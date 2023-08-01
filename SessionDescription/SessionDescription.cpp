@@ -56,8 +56,12 @@ std::string SessionDescription::ToString()
     message.append("a=msid-semantic: WMS\r\n");
 
     //ice-lite
-    message.append("a=ice-lite\r\n");
-
+    for(const auto& transport : mTransports){
+        if(transport.mTransportDescription.iceMode() == ICEMODE_LITE){
+            message.append("a=ice-lite\r\n");
+            break;
+        }
+    }
 
 
     //media description
@@ -222,24 +226,26 @@ void SessionDescription::BuildMediaDescription(const ContentInfo *content_info, 
 
                 //a=rtcp-fb:<payload type> <parameters>/<ccm <ccm_parameters>>
                 for(const auto& fb : codec.mFeedbackParams){
-                    ss << "a=rtcp-fb: " << codec.mID << " " << fb.id();
+                    ss << "a=rtcp-fb:" << codec.mID << " " << fb.id();
                     if(!fb.param().empty())
                         ss << " " << fb.param();
                     ss << "\r\n";
                 }
 
+
                 //a=fmtp:<payload type> <parameters>
-                ss << "a=fmtp: " << codec.mID;
+                if(!codec.mParamMaps.empty()){
+                    ss << "a=fmtp:" << codec.mID << " ";
 
-                std::string end_str = "";
-                for(const auto& it : codec.mParamMaps){
-                    ss << end_str;
-                    end_str = ";";
+                    std::string end_str = "";
+                    for(const auto& it : codec.mParamMaps){
+                        ss << end_str;
+                        end_str = ";";
 
-                    ss << it.first << "=" << it.second;
+                        ss << it.first << "=" << it.second;
+                    }
+                    ss << "\r\n";
                 }
-                ss << "\r\n";
-
 
                 message->append(ss.str());
 
@@ -254,24 +260,25 @@ void SessionDescription::BuildMediaDescription(const ContentInfo *content_info, 
 
                 //a=rtcp-fb:<payload type> <parameters>/<ccm <ccm_parameters>>
                 for(const auto& fb : codec.mFeedbackParams){
-                    ss << "a=rtcp-fb: " << codec.mID << " " << fb.id();
+                    ss << "a=rtcp-fb:" << codec.mID << " " << fb.id();
                     if(!fb.param().empty())
                         ss << " " << fb.param();
                     ss << "\r\n";
                 }
 
                 //a=fmtp:<payload type> <parameters>
-                ss << "a=fmtp: " << codec.mID;
+                if(!codec.mParamMaps.empty()){
+                    ss << "a=fmtp:" << codec.mID <<" ";
 
-                std::string end_str = "";
-                for(const auto& it : codec.mParamMaps){
-                    ss << end_str;
-                    end_str = ";";
+                    std::string end_str = "";
+                    for(const auto& it : codec.mParamMaps){
+                        ss << end_str;
+                        end_str = ";";
 
-                    ss << it.first << "=" << it.second;
+                        ss << it.first << "=" << it.second;
+                    }
+                    ss << "\r\n";
                 }
-                ss << "\r\n";
-
 
                 message->append(ss.str());
             }
@@ -361,4 +368,44 @@ ContentInfo &ContentInfo::operator=(const ContentInfo &o)
     mMediaContentDescription = o.mMediaContentDescription->Clone(),
     mMid = o.mMid;
     return *this;
+}
+
+AudioCodec *AudioContentDescription::FindCodecById(int id)
+{
+    for(auto& codec : mCodecs){
+        if(codec.mID == id){
+            return &codec;
+        }
+    }
+    return nullptr;
+}
+
+VideoCodec *VideoContentDescription::FindCodecById(int id)
+{
+    for(auto& codec : mCodecs){
+        if(codec.mID == id){
+            return &codec;
+        }
+    }
+    return nullptr;
+}
+
+AudioCodec *AudioContentDescription::FindCodecByName(const std::string &name)
+{
+    for(auto& codec : mCodecs){
+        if(codec.mName == name){
+            return &codec;
+        }
+    }
+    return nullptr;
+}
+
+VideoCodec *VideoContentDescription::FindCodecByName(const std::string &name)
+{
+    for(auto& codec : mCodecs){
+        if(codec.mName == name){
+            return &codec;
+        }
+    }
+    return nullptr;
 }

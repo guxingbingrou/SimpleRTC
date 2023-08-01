@@ -18,7 +18,12 @@ MainWidget::MainWidget(QWidget *parent)
 
     auto offer = sdp_factory->CreateOffer(&option);
 
-    DEBUG("sdp:\n%s", offer->ToString().c_str());
+    auto sdp_str = offer->ToString();
+
+    DEBUG("sdp111:\n%s", offer->ToString().c_str());
+
+    auto sdp = sdp_factory->SdpDeSerilaize(sdp_str);
+    DEBUG("sdp222:\n%s", sdp->ToString().c_str());
 
 }
 

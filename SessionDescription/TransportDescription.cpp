@@ -21,6 +21,20 @@ std::string TransportDescription::ConnectionRoleToString(const ConnectionRole &r
     }
 }
 
+ConnectionRole TransportDescription::StringToConnectionRole(const std::string &str)
+{
+     const std::string roles[] = {
+        "active", "passive",
+        "actpass", "holdconn"};
+
+    for (size_t i = 0; i < str.size(); ++i) {
+      if (roles[i] == str) {
+        return static_cast<ConnectionRole>(CONNECTIONROLE_ACTIVE + i);
+      }
+    }
+    return CONNECTIONROLE_NONE;
+}
+
 void TransportDescription::AddCandidate(const std::string &ip, const int port, const std::string &type)
 {
     mCandidates.emplace_back(port, ip, type);
@@ -74,4 +88,14 @@ std::vector<CandidateParam> TransportDescription::candidates() const
 void TransportDescription::SetCandidates(const std::vector<CandidateParam> &candidates)
 {
     mCandidates = candidates;
+}
+
+IceMode TransportDescription::iceMode() const
+{
+    return mIceMode;
+}
+
+void TransportDescription::SetIceMode(const IceMode &iceMode)
+{
+    mIceMode = iceMode;
 }

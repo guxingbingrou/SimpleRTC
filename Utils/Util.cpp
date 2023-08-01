@@ -19,10 +19,10 @@ std::vector<std::string> Util::Split(std::string src, std::string delim)
 
         start_pos = end_pos + delim.size();
 
-        end_pos = src.find(delim);
+        end_pos = src.find(delim, start_pos);
     }
 
-    if(start_pos != src.size() -1){
+    if(start_pos != src.size()){
         split.push_back(src.substr(start_pos));
     }
 

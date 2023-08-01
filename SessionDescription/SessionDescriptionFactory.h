@@ -14,27 +14,29 @@ public:
 
     std::unique_ptr<SessionDescription> CreateOffer(const SessionDescriptionOption* option);
 
-//    bool SdpDeSerilaize(const std::string& sdp);
+    std::unique_ptr<SessionDescription> SdpDeSerilaize(const std::string& sdp);
 
 
 private:
-    bool ParseConnectionInfo(const std::string& message);
+    bool ParseSessionDescription(const std::string& sdp, size_t* pos,
+                                 TransportDescription* transport_desc, SessionDescription* session_desc, std::vector<Extmap>* extMaps);
+
+    bool ParseMediaDescription(const std::string& sdp, size_t* pos,
+                                 TransportDescription* transport_desc, SessionDescription* session_desc, std::vector<Extmap>* extMaps);
+
+    bool ParseExtmap(const std::string& line, Extmap* extMap);
+
+    bool ParseContent(const std::string& sdp, MediaType media_type,
+                      size_t* pos, std::string* content_name, MediaContentDescription* media_desc, TransportDescription* transport_desc);
+
+    bool GetLineWithType(const std::string& message, size_t* pos, std::string* line, const char type);
+    bool IsLineType(const std::string& message, const char type, size_t line_start);
+    bool GetLine(const std::string& message, size_t* pos, std::string* line);
+
+    bool HasAttribute(const std::string& line, const std::string& attribute);
 
     std::string mSessionID;
     std::string mSessionVersion;
-
-    std::vector<std::string> mGroup;
-
-    //1、ICE候选地址，媒体服务器只收集host类型的地址
-    //2、lite ice端(服务端)不主动进行连通性测试，由full ice端(客户端)发起
-    bool mIceLite = true;
-
-    std::string mIceUfrag;
-    std::string mIcePwd;
-    std::string mIceOption;
-
-    std::string mFingerPrintType;
-    std::string mFingerPrint;
 
     std::string mSetup;  //表示dtls的协商过程中角色的问题，谁是客户端，谁是服务器 actpass\active(客户端)\passive(服务端)   rfc4145
 

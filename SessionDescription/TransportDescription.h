@@ -3,7 +3,10 @@
 
 #include <string>
 #include <vector>
+
 // ICE RFC 5245 implementation type.
+//1、ICE候选地址，媒体服务器只收集host类型的地址
+//2、lite ice端(服务端)不主动进行连通性测试，由full ice端(客户端)发起
 enum IceMode {
   ICEMODE_FULL,  // As defined in http://tools.ietf.org/html/rfc5245#section-4.1
   ICEMODE_LITE   // As defined in http://tools.ietf.org/html/rfc5245#section-4.2
@@ -38,6 +41,9 @@ struct IceParameters{
 
 
 struct FingerprintParameters{
+    FingerprintParameters(){};
+    FingerprintParameters(const std::string& algorithm, const std::string& fingerprint)
+        : mAlgorithm(algorithm), mFingerPrint(fingerprint) {}
     std::string mAlgorithm = "sha-256";
     std::string mFingerPrint = "1A:F4:66:52:47:29:14:5A:7E:07:E1:E9:2E:04:C2:CD:6B:65:E5:66:C3:29:B0:75:C5:6B:17:3E:F2:CB:CF:B3";
 };
@@ -58,11 +64,13 @@ class TransportDescription
 {
 public:
     TransportDescription();
+    TransportDescription(const TransportDescription& o) = default;
     void AddOption(const std::string& option){
         mTranportOptions.push_back(option);
     }
 
     static std::string ConnectionRoleToString(const ConnectionRole& role);
+    static ConnectionRole StringToConnectionRole(const std::string& str);
 
     void AddCandidate(const std::string& ip, const int port, const std::string& type);
 
@@ -81,11 +89,15 @@ public:
     std::vector<CandidateParam> candidates() const;
     void SetCandidates(const std::vector<CandidateParam> &candidates);
 
+    IceMode iceMode() const;
+    void SetIceMode(const IceMode &iceMode);
+
 private:
     std::vector<std::string> mTranportOptions;
     IceParameters mIce;
     FingerprintParameters mFingerprint;
     ConnectionRole mConnectionRole;
+    IceMode mIceMode = ICEMODE_FULL;
 
     std::vector<CandidateParam> mCandidates;
 

@@ -21,6 +21,7 @@ enum MediaDirection{
 };
 
 struct Extmap{
+    Extmap() = default;
     Extmap(int id, std::string extmap){
         this->id = id;
         this->extmap = extmap;
@@ -125,7 +126,9 @@ public:
     virtual void SetCodecs(const std::vector<C>& codecs){ mCodecs = codecs; }
     virtual void AddCodec(const C& codec){ mCodecs.push_back(codec); }
 
-private:
+    virtual C* FindCodecById(int id) = 0;
+    virtual C* FindCodecByName(const std::string& name) = 0;
+protected:
     std::vector<C> mCodecs;
 };
 
@@ -135,6 +138,9 @@ public:
     virtual MediaType type() const override {return MEDIA_TYPE_AUDIO; }
     virtual AudioContentDescription* AsAudio() override{ return this; }
     virtual const AudioContentDescription* AsAudio() const override{ return this; }
+
+    virtual AudioCodec* FindCodecById(int id) override;
+    virtual AudioCodec* FindCodecByName(const std::string& name) override;
 
 private:
     virtual MediaContentDescription* CloneInternal() const override{
@@ -147,6 +153,9 @@ public:
     virtual MediaType type() const override {return MEDIA_TYPE_VIDEO; }
     virtual VideoContentDescription* AsVideo() override{ return this; }
     virtual const VideoContentDescription* AsVideo() const override{ return this; }
+
+    virtual VideoCodec* FindCodecById(int id) override;
+    virtual VideoCodec* FindCodecByName(const std::string& name) override;
 
 private:
     virtual MediaContentDescription* CloneInternal() const override{
